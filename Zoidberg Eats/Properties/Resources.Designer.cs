@@ -63,6 +63,16 @@ namespace Zoidberg_Eats.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap blue_planet_express {
+            get {
+                object obj = ResourceManager.GetObject("blue_planet_express", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap blue_zoidberg_left {
             get {
                 object obj = ResourceManager.GetObject("blue_zoidberg_left", resourceCulture);
@@ -76,6 +86,16 @@ namespace Zoidberg_Eats.Properties {
         internal static System.Drawing.Bitmap blue_zoidberg_right {
             get {
                 object obj = ResourceManager.GetObject("blue_zoidberg_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fish {
+            get {
+                object obj = ResourceManager.GetObject("fish", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -136,6 +156,16 @@ namespace Zoidberg_Eats.Properties {
         internal static System.Drawing.Bitmap panucci_s_pizza_box {
             get {
                 object obj = ResourceManager.GetObject("panucci_s_pizza_box", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Parallelbox {
+            get {
+                object obj = ResourceManager.GetObject("Parallelbox", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

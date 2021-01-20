@@ -81,12 +81,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\nibbler png.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\panucci%27s pizza box.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\futuramaback.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +109,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\zoidberg-right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue planet express.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue planet express1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Parallelbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\panucci%27s pizza box.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nibbler png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fish.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
