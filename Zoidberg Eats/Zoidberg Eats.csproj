@@ -128,5 +128,11 @@
   <ItemGroup>
     <None Include="Resources\fish.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\game_over_zoidberg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new_high_score_zoidberg.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
