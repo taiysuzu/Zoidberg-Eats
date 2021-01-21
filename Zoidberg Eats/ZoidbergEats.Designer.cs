@@ -63,7 +63,7 @@ namespace Zoidberg_Eats
             this.subtitleLabel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.subtitleLabel.Location = new System.Drawing.Point(12, 413);
             this.subtitleLabel.Name = "subtitleLabel";
-            this.subtitleLabel.Size = new System.Drawing.Size(776, 48);
+            this.subtitleLabel.Size = new System.Drawing.Size(776, 66);
             this.subtitleLabel.TabIndex = 1;
             this.subtitleLabel.Text = "subtitle";
             this.subtitleLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -137,6 +137,7 @@ namespace Zoidberg_Eats
             this.Controls.Add(this.titleLabel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ZoidbergEats";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zoidberg Eats";

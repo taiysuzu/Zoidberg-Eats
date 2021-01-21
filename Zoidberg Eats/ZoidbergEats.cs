@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Media;
+using System.IO;
 
 namespace Zoidberg_Eats
 {
@@ -49,16 +49,18 @@ namespace Zoidberg_Eats
         Font screenFont = new Font("Futurama Bold Font", 12);
         Font gameOverFont = new Font("Futurama Title Font", 40);
 
-        SoundPlayer title = new SoundPlayer(Properties.Resources.Futurama_beatbox_opening_2);
-        SoundPlayer theme = new SoundPlayer(Properties.Resources.Futurama_theme_song);
-        SoundPlayer hey = new SoundPlayer(Properties.Resources.zoidberg_hey);
-        SoundPlayer eat = new SoundPlayer(Properties.Resources.zoidberg_eat);
-        SoundPlayer scream = new SoundPlayer(Properties.Resources.zoidberg_scream);
+        System.Windows.Media.MediaPlayer title = new System.Windows.Media.MediaPlayer();
+        System.Windows.Media.MediaPlayer theme = new System.Windows.Media.MediaPlayer();
+        System.Windows.Media.MediaPlayer hey = new System.Windows.Media.MediaPlayer();
+        System.Windows.Media.MediaPlayer eat = new System.Windows.Media.MediaPlayer();
+        System.Windows.Media.MediaPlayer scream = new System.Windows.Media.MediaPlayer();
 
         public ZoidbergEats()
         {
             InitializeComponent();
-            title.PlayLooping();
+            title.MediaEnded += new EventHandler(Title_Ended);
+            title.Open(new Uri(Application.StartupPath + "/Resources/Futurama beatbox opening 2.wav"));
+            title.Play();
         }
 
         //set key inputs
@@ -110,6 +112,11 @@ namespace Zoidberg_Eats
             {
                 gameTimer.Enabled = false;
                 gameState = "over";
+
+                theme.Stop();
+                hey.Open(new Uri(Application.StartupPath + "/Resources/zoidberg hey.wav"));
+                hey.Play();
+
                 highScoreList.Add(score);
             }
 
@@ -193,21 +200,26 @@ namespace Zoidberg_Eats
             for (int i = 0; i < objectXList.Count(); i++)
             {
                 Rectangle objectRect = new Rectangle(objectXList[i], objectYList[i], objectSize, objectSize - 15);
+                
 
                 if (zoidbergRect.IntersectsWith(objectRect))
                 {
                     if (objectTypeList[i] == "fish")
                     {
                         score += 5;
+                        eat.Open(new Uri(Application.StartupPath + "/Resources/zoidberg eat.wav"));
                         eat.Play();
                     }
                     else if (objectTypeList[i] == "pizza")
                     {
                         score += 10;
+                        eat.Open(new Uri(Application.StartupPath + "/Resources/zoidberg eat.wav"));
                         eat.Play();
                     }
                     else if (objectTypeList[i] == "nibbler")
                     {
+                        theme.Stop();
+                        scream.Open(new Uri(Application.StartupPath + "/Resources/zoidberg scream.wav"));
                         scream.Play();
                         gameTimer.Enabled = false;
                         gameState = "over";
@@ -283,7 +295,6 @@ namespace Zoidberg_Eats
                     else if (objectTypeList[i] == "nibbler")
                     {
                         e.Graphics.DrawImage(Properties.Resources.nibbler_png, objectXList[i], objectYList[i], objectSize, objectSize);
-                        scream.Play();
                     }
                     else if (objectTypeList[i] == "fish")
                     {
@@ -369,6 +380,11 @@ namespace Zoidberg_Eats
                 {
 
                 }
+
+                subtitleLabel.TextAlign = ContentAlignment.BottomCenter;
+                subtitleLabel.Text = "Space to play again or Esc to Exit";
+                subtitleLabel.ForeColor = Color.FromArgb(192, 0, 0); 
+                subtitleLabel.Visible = true;
             }
         }
 
@@ -398,6 +414,20 @@ namespace Zoidberg_Eats
             objectTypeList.Clear();
 
             title.Stop();
+            theme.MediaEnded += new EventHandler(Theme_Ended);
+            theme.Open(new Uri(Application.StartupPath + "/Resources/Futurama theme song.wav"));
+            theme.Play();
+        }
+
+        private void Title_Ended(object sender, EventArgs e)
+        {
+            title.Stop();
+            title.Play();
+        }
+        private void Theme_Ended(object sender, EventArgs e)
+        {
+            theme.Stop();
+            theme.Play();
         }
     }
 }

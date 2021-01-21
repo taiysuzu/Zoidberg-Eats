@@ -61,6 +61,16 @@ namespace Zoidberg_Eats.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon baked_zoidberg {
+            get {
+                object obj = ResourceManager.GetObject("baked_zoidberg", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap blue_planet_express {
