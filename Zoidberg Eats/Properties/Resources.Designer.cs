@@ -101,6 +101,24 @@ namespace Zoidberg_Eats.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Futurama_beatbox_opening_2 {
+            get {
+                return ResourceManager.GetStream("Futurama_beatbox_opening_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Futurama_theme_song {
+            get {
+                return ResourceManager.GetStream("Futurama_theme_song", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap futuramaback {
@@ -173,10 +191,38 @@ namespace Zoidberg_Eats.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap piT46KB {
+            get {
+                object obj = ResourceManager.GetObject("piT46KB", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap planet_express_building {
             get {
                 object obj = ResourceManager.GetObject("planet_express_building", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream zoidberg_eat {
+            get {
+                return ResourceManager.GetStream("zoidberg_eat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream zoidberg_hey {
+            get {
+                return ResourceManager.GetStream("zoidberg_hey", resourceCulture);
             }
         }
         
@@ -197,6 +243,15 @@ namespace Zoidberg_Eats.Properties {
             get {
                 object obj = ResourceManager.GetObject("zoidberg_right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream zoidberg_scream {
+            get {
+                return ResourceManager.GetStream("zoidberg_scream", resourceCulture);
             }
         }
         

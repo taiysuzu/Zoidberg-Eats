@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace Zoidberg_Eats
 {
@@ -36,7 +37,7 @@ namespace Zoidberg_Eats
         List<string> objectTypeList = new List<string>();
         int objectSize = 60;
 
-        List<int> highScoreList = new List<int>(new int[] { -1, 0, 0, 0, 0, 0 });
+        List<int> highScoreList = new List<int>();
 
         Random randGen = new Random();
         int randVal = 0;
@@ -48,9 +49,16 @@ namespace Zoidberg_Eats
         Font screenFont = new Font("Futurama Bold Font", 12);
         Font gameOverFont = new Font("Futurama Title Font", 40);
 
+        SoundPlayer title = new SoundPlayer(Properties.Resources.Futurama_beatbox_opening_2);
+        SoundPlayer theme = new SoundPlayer(Properties.Resources.Futurama_theme_song);
+        SoundPlayer hey = new SoundPlayer(Properties.Resources.zoidberg_hey);
+        SoundPlayer eat = new SoundPlayer(Properties.Resources.zoidberg_eat);
+        SoundPlayer scream = new SoundPlayer(Properties.Resources.zoidberg_scream);
+
         public ZoidbergEats()
         {
             InitializeComponent();
+            title.PlayLooping();
         }
 
         //set key inputs
@@ -102,6 +110,7 @@ namespace Zoidberg_Eats
             {
                 gameTimer.Enabled = false;
                 gameState = "over";
+                highScoreList.Add(score);
             }
 
             //move Zoidberg - incorporated check for if you have touched a box/entered the alternate universe
@@ -148,14 +157,14 @@ namespace Zoidberg_Eats
             {
                 objectXList.Add(randGen.Next(10, 750));
                 objectYList.Add(0);
-                objectSpeedList.Add(randGen.Next(5, 15));
+                objectSpeedList.Add(randGen.Next(8, 15));
                 objectTypeList.Add("fish");
             }
             else if (randVal >= 60 && randVal < 90)//3% chance of pizza
             {
                 objectXList.Add(randGen.Next(10, 750));
                 objectYList.Add(0);
-                objectSpeedList.Add(randGen.Next(5, 15));
+                objectSpeedList.Add(randGen.Next(8, 15));
                 objectTypeList.Add("pizza");
             }
 
@@ -190,15 +199,26 @@ namespace Zoidberg_Eats
                     if (objectTypeList[i] == "fish")
                     {
                         score += 5;
+                        eat.Play();
                     }
                     else if (objectTypeList[i] == "pizza")
                     {
                         score += 10;
+                        eat.Play();
                     }
                     else if (objectTypeList[i] == "nibbler")
                     {
+                        scream.Play();
                         gameTimer.Enabled = false;
                         gameState = "over";
+                        for (int j = 0; j < highScoreList.Count; j++)
+                        {
+                            if (highScoreList[j] == score && score > 0)
+                            {
+                                highScoreList.RemoveAt(j);
+                            }
+                        }
+                        highScoreList.Add(score);
                     }
                     else if (objectTypeList[i] == "box")
                     {
@@ -239,6 +259,7 @@ namespace Zoidberg_Eats
                 adLabel.Visible = true;
                 adPictureBox.Visible = true;
             }
+
             //redraw screen while game is running
             else if (gameState == "running")
             {
@@ -262,6 +283,7 @@ namespace Zoidberg_Eats
                     else if (objectTypeList[i] == "nibbler")
                     {
                         e.Graphics.DrawImage(Properties.Resources.nibbler_png, objectXList[i], objectYList[i], objectSize, objectSize);
+                        scream.Play();
                     }
                     else if (objectTypeList[i] == "fish")
                     {
@@ -273,10 +295,11 @@ namespace Zoidberg_Eats
                     }
                 }
             }
+
             //game over screen
             else if (gameState == "over")
             {
-                this.BackgroundImage = Properties.Resources.planet_express_building;
+                this.BackgroundImage = Properties.Resources.piT46KB;
 
                 titleLabel.Visible = false;
                 subtitleLabel.Visible = false;
@@ -289,12 +312,12 @@ namespace Zoidberg_Eats
                 adPictureBox.Visible = true;
 
                 //check to see if you got a high score and diplay the correct game over screen
-                if (highScoreList[1] > score || score == 0)
+                if (highScoreList[0] > score || score == 0)
                 {
                     e.Graphics.DrawImage(Properties.Resources.game_over_zoidberg, 145, 63, 510, 374);
                     e.Graphics.DrawString("Game Over", gameOverFont, redBrush, 230, 70);
                 }
-                else if (highScoreList[1] <= score)
+                else if (highScoreList[0] <= score)
                 {
                     e.Graphics.DrawImage(Properties.Resources.new_high_score_zoidberg, 145, 63, 510, 374);
                     e.Graphics.DrawString("High Score", gameOverFont, redBrush, 230, 70);
@@ -302,41 +325,50 @@ namespace Zoidberg_Eats
 
                 e.Graphics.DrawString($"Score: {score}", screenFont, greenBrush, 350, 130);
 
-                //save score if it's a high score
-                if (highScoreList[1] < score)
+                //sort scores highest to lowest then remove the smallest number if the list gets larger than 5
+                for (int i = 0; i <= highScoreList.Count(); i++)
                 {
-                    highScoreList[1] = score;
-                }
-                else if (highScoreList[2] < score && highScoreList[1] > score)
-                {
-                    highScoreList[2] = score;
-                }
-                else if (highScoreList[3] < score && highScoreList[1] > score && highScoreList[2] > score)
-                {
-                    highScoreList[3] = score;
-                }
-                else if (highScoreList[4] < score && highScoreList[1] > score && highScoreList[2] > score && highScoreList[3] > score)
-                {
-                    highScoreList[4] = score;
-                }
-                else if (highScoreList[5] < score && highScoreList[1] > score && highScoreList[2] > score && highScoreList[3] > score && highScoreList[4] > score)
-                {
-                    highScoreList[5] = score;
-                }
 
+                    highScoreList.Sort();
+                    highScoreList.Reverse();
+
+                    if (highScoreList.Count() >= 6)
+                    {
+                        highScoreList.RemoveAt(5);
+                    }
+                }
 
                 //draw leaderboard
                 e.Graphics.DrawString("This Session's Top 5:", screenFont, greenBrush, 300, 200);
                 e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 230);
-                e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 250);
-                e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 270);
-                e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 290);
-                e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 310);
-                e.Graphics.DrawString($"{highScoreList[1]}", screenFont, redBrush, 420, 230);
-                e.Graphics.DrawString($"{highScoreList[2]}", screenFont, redBrush, 420, 250);
-                e.Graphics.DrawString($"{highScoreList[3]}", screenFont, redBrush, 420, 270);
-                e.Graphics.DrawString($"{highScoreList[4]}", screenFont, redBrush, 420, 290);
-                e.Graphics.DrawString($"{highScoreList[5]}", screenFont, redBrush, 420, 310);
+                if (highScoreList.Count() >= 2)
+                {
+                    e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 250);
+                }
+                if (highScoreList.Count() >= 3)
+                {
+                    e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 270);
+                }
+                if (highScoreList.Count() >= 4)
+                {
+                    e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 290);
+                }
+                if (highScoreList.Count() >= 5)
+                {
+                    e.Graphics.DrawString("Zoidberg", screenFont, redBrush, 320, 310);
+                }
+                e.Graphics.DrawString($"{highScoreList[0]}", screenFont, redBrush, 420, 230);
+                try
+                {
+                    e.Graphics.DrawString($"{highScoreList[1]}", screenFont, redBrush, 420, 250);
+                    e.Graphics.DrawString($"{highScoreList[2]}", screenFont, redBrush, 420, 270);
+                    e.Graphics.DrawString($"{highScoreList[3]}", screenFont, redBrush, 420, 290);
+                    e.Graphics.DrawString($"{highScoreList[4]}", screenFont, redBrush, 420, 310);
+                }
+                catch
+                {
+
+                }
             }
         }
 
@@ -364,6 +396,8 @@ namespace Zoidberg_Eats
             objectYList.Clear();
             objectSpeedList.Clear();
             objectTypeList.Clear();
+
+            title.Stop();
         }
     }
 }

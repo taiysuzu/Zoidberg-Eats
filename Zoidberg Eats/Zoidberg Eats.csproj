@@ -134,5 +134,26 @@
   <ItemGroup>
     <None Include="Resources\new_high_score_zoidberg.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\piT46KB.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoidberg hey.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\title music.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoidberg scream.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoidberg eat.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Futurama beatbox opening 2.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Futurama theme song.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
