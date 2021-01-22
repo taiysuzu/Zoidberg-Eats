@@ -1,7 +1,8 @@
 ﻿/* Taiyo Suzuki
  * Jan. 22 2021
- * Zoidberg Eats is a 2D interactive game themed around the character Zoidberg from the cartoon Futurama
+ * Zoidberg Eats is a 2D interactive game themed around the character Zoidberg from the cartoon Futurama. The player is to dodge or catch falling objects.
  */
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,6 +56,7 @@ namespace Zoidberg_Eats
         System.Windows.Media.MediaPlayer eat = new System.Windows.Media.MediaPlayer();
         System.Windows.Media.MediaPlayer scream = new System.Windows.Media.MediaPlayer();
 
+        //play title music
         public ZoidbergEats()
         {
             InitializeComponent();
@@ -84,6 +86,19 @@ namespace Zoidberg_Eats
                     if (gameState == "title" || gameState == "over")
                     {
                         Application.Exit();
+                    }
+                    else if (gameState == "help")
+                    {
+                        gameState = "title";
+                        this.BackgroundImage = Properties.Resources.futuramaback;
+                        Refresh();
+                    }
+                    break;
+                case Keys.H:
+                    if (gameState == "title")
+                    {
+                        gameState = "help";
+                        Refresh();
                     }
                     break;
             }
@@ -200,7 +215,7 @@ namespace Zoidberg_Eats
             for (int i = 0; i < objectXList.Count(); i++)
             {
                 Rectangle objectRect = new Rectangle(objectXList[i], objectYList[i], objectSize, objectSize - 15);
-                
+
 
                 if (zoidbergRect.IntersectsWith(objectRect))
                 {
@@ -264,12 +279,48 @@ namespace Zoidberg_Eats
             //title screen  
             if (gameState == "title")
             {
+                titleLabel.Visible = true;
+                subtitleLabel.Visible = true;
+                titleZoidberg.Visible = true;
+                adLabel.Visible = true;
+                adPictureBox.Visible = true;
+
                 titleLabel.Text = "Zoidberg Eats";
-                subtitleLabel.Text = "Press Space to start or Esc to exit";
+                subtitleLabel.Text = "Press Space to start, H for help, or Esc to exit";
 
                 adLabel.Text = "Brought to you by:";
                 adLabel.Visible = true;
                 adPictureBox.Visible = true;
+            }
+
+            //game instructions
+            else if (gameState == "help")
+            {
+                this.BackgroundImage = Properties.Resources.planet_express_building;
+
+                titleLabel.Visible = false;
+                subtitleLabel.Visible = false;
+                titleZoidberg.Visible = false;
+                adLabel.Visible = false;
+                adPictureBox.Visible = false;
+
+                e.Graphics.DrawImage(Properties.Resources.fish, 100, 50, objectSize, objectSize);
+                e.Graphics.DrawImage(Properties.Resources.panucci_s_pizza_box, 200, 50, objectSize, objectSize);
+                e.Graphics.DrawImage(Properties.Resources.nibbler_png, 400, 50, objectSize, objectSize);
+                e.Graphics.DrawImage(Properties.Resources.Parallelbox, 600, 50, objectSize, objectSize);
+                e.Graphics.DrawImage(Properties.Resources.zoidberg_right, 350, 290, 100, 100);
+
+                e.Graphics.FillRectangle(redBrush, 50, 120, 280, 20);
+                e.Graphics.DrawString("Catch these to increase score!", screenFont, greenBrush, 50, 120);
+
+                e.Graphics.FillRectangle(redBrush, 300, 20, 250, 20);
+                e.Graphics.DrawString("Don't get eaten by Nibbler!", screenFont, greenBrush, 300, 20);
+
+                e.Graphics.FillRectangle(redBrush, 480, 120, 300, 20);
+                e.Graphics.DrawString("Travel to the Alternate Universe!", screenFont, greenBrush, 480, 120);
+
+                e.Graphics.FillRectangle(redBrush, 230, 400, 380, 20);
+                e.Graphics.DrawString("Use the left and right arrow keys to move!", screenFont, greenBrush, 230, 400);
             }
 
             //redraw screen while game is running
@@ -383,7 +434,7 @@ namespace Zoidberg_Eats
 
                 subtitleLabel.TextAlign = ContentAlignment.BottomCenter;
                 subtitleLabel.Text = "Space to play again or Esc to Exit";
-                subtitleLabel.ForeColor = Color.FromArgb(192, 0, 0); 
+                subtitleLabel.ForeColor = Color.FromArgb(192, 0, 0);
                 subtitleLabel.Visible = true;
             }
         }
@@ -419,6 +470,7 @@ namespace Zoidberg_Eats
             theme.Play();
         }
 
+        // functions for media player loops
         private void Title_Ended(object sender, EventArgs e)
         {
             title.Stop();
